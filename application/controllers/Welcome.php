@@ -19,7 +19,16 @@ class Welcome extends MY_Controller {
 		libxml_use_internal_errors(true);
 		$html->loadHTML($data);
 		libxml_use_internal_errors(false);
-		var_dump($html->getElementById('user-info'));
-		// $html->getElementById('front-content-full');
+
+		$user_info = $html->getElementById('user-info');
+
+		$result = array(
+			"Nama" => $user_info->getElementsByTagName('h3')->item(0)->nodeValue,
+			"Jurusan" => $user_info->getElementsByTagName('h4')->item(1)->nodeValue,
+			"Nim" => $user_info->getElementsByTagName('h4')->item(0)->nodeValue,
+		);
+
+		$this->sendResponse($result);
+		$html->getElementById('front-content-full');
 	}
 }
