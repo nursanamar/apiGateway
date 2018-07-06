@@ -9,7 +9,7 @@ class Portal
     public function login()
     {
         $curl = curl_init();
-        $data = array('username' => "60200117026", "password" => "Ayobuka018");
+
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => "http://portalakademik.uin-alauddin.ac.id/index.php?pAct=proses&pSub=login&pModule=login",

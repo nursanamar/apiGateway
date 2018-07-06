@@ -13,7 +13,8 @@ class Welcome extends MY_Controller {
 
 	public function index()
 	{
-		$data = $this->portal->login('d','a');
+		$user = $this->getBody();
+		$data = $this->portal->login($user);
 		$html = new DOMDocument();
 		$html->validateOnParse = true;
 		libxml_use_internal_errors(true);
