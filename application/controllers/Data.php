@@ -63,4 +63,45 @@ class Data extends MY_Controller
         $this->sendResponse($response);
     }
 
+    public function listKhs()
+    {
+        $user = $this->payload;
+        $this->portal->setCookie(array("username" => $user->id, "password" => $user->pec));
+        $htmlPage = $this->portal->khsList();
+        $response = array(
+            "status" => "",
+            "data" => [],
+        );
+        if ($htmlPage) {
+
+            $html = new DOMDocument();
+            $html->validateOnParse = true;
+            libxml_use_internal_errors(true);
+            $html->loadHTML($htmlPage);
+            libxml_use_internal_errors(false);
+
+            $divWarning = $html->getElementById('warning') or false;
+            
+            $response['status'] = $divWarning ? $divWarning->getElementsByTagName('table')->item(0)->getElementsByTagName('tr')->item(1)->getElementsByTagName('td')->item(0)->nodeValue : '';
+
+            $xpath = new DOMXPath($html);
+
+            $list = $xpath->query('//select[@name="lstSemester"]')->item(0)->getElementsByTagName('option');
+            
+            foreach ($list as $element) {
+                $response['data'][] = array(
+                    "id" => $element->getAttribute('value'),
+                    "value" => $element->nodeValue,
+                );
+            }
+
+
+        } else {
+            $response['error'] = "erro";
+        }
+
+        $this->sendResponse($response);
+
+    }
+
 }

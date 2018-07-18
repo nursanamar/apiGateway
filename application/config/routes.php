@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['print/(:any)'] = 'welcome/print/$1';
 $route['login']['post'] = 'welcome/login';
 $route['krs']['get'] = 'data/krs';
+$route['khs']['get'] = 'data/listKhs';
 $route['test'] = 'welcome/enc';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
