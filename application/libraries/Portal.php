@@ -150,6 +150,43 @@ class Portal
 
     }
 
+    public function khsSemester($id)
+    {
+        $curl = curl_init();
+
+        $data = array(
+            "lstSemester" => $id,
+            "btnLihat" => "Lihat"
+        );
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "http://portalakademik.uin-alauddin.ac.id/index.php?pAct=view&pSub=academic_report&pModule=academic_report",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_COOKIE => $this->cookie,
+            CURLOPT_HTTPHEADER => array(
+                "content-type: multipart/form-data",
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return false;
+        } else {
+            return $response;
+        }
+
+    }
+
     public function redirect($location, $data)
     {
         $curl = curl_init();

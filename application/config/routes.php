@@ -54,6 +54,7 @@ $route['print/(:any)'] = 'welcome/print/$1';
 $route['login']['post'] = 'welcome/login';
 $route['krs']['get'] = 'data/krs';
 $route['khs']['get'] = 'data/listKhs';
+$route['khs/(:any)']['get'] = 'data/khsSemester/$1';
 $route['test'] = 'welcome/enc';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
